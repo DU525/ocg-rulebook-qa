@@ -1,0 +1,89 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# FAISS Index
+*.faiss
+*.index
+
+# Vector Store Data
+data/*_vectors.npy
+data/*_index.bin
+data/*_chunks.json
+data/ocg_chroma_db/
+data/dm_vectors.npy
+data/dm_index.bin
+data/dm_rules_chunks.json
+
+# SQLite WAL/SHM
+*.db-shm
+*.db-wal
+
+# Models
+models/
+cache/
+
+data/chunks/*.bin
+data/chunks/*.json
+data/chunks/*.npy
+
+# AI Coding Tool Directories
+.opencode/
+.trae/
+.mavis/
+.harness/
+.claude/
+.cursor/
+
+# pytest cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build outputs
+coverage/
+*.egg-info/

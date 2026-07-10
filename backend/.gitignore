@@ -1,0 +1,30 @@
+# OCG规则书知识库
+data/
+data/ocg_rules/
+data/chroma_db/
+data/uploads/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.env
+.venv
+env/
+venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Database
+*.db
+*.db-journal
+
+# Logs
+*.log
+logs/

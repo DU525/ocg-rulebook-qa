@@ -1,0 +1,58 @@
+# OCG规则书问答系统 - Conda环境配置
+# 使用方法: conda env create -f environment.yml && conda activate ocg-qa
+
+name: ocg-qa
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  # Python版本
+  - python=3.10.12
+  - pip=23.3.1
+
+  # PyTorch (CPU版本，如需GPU请使用pytorch::pytorch-gpu)
+  - pytorch::pytorch=2.1.0
+  - pytorch::cpuonly
+
+  # 后端Web框架
+  - flask=2.2.5
+  - flask-cors=4.0.0
+
+  # RAG核心
+  - langchain=0.0.27
+  - langchain-community=0.0.10
+  - chromadb=0.4.22
+
+  # Embedding模型
+  - sentence-transformers=2.2.2
+
+  # LLM集成
+  - openai=1.10.0
+
+  # 文档解析
+  - pypdf=4.0.1
+  - python-docx=1.1.0
+
+  # 数据库
+  - sqlalchemy=2.0.25
+
+  # 日志与监控
+  - prometheus-client=0.19.0
+  - loguru=0.7.2
+
+  # 工具库
+  - pydantic=1.10.13
+  - python-dotenv=1.0.0
+  - numpy>=1.24.0
+
+  # Node.js (用于前端构建)
+  - nodejs=18.19.0
+
+variables:
+  OPENAI_API_KEY: ""           # 留空，启动后需手动配置
+  MODEL_NAME: "abab6.5s-chat"
+  MINIMAX_API_BASE: "https://api.minimax.chat/v1"
+  DEBUG: "false"
+
+prefix: C:\Users\1\anaconda3\envs\ocg-qa

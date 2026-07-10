@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="600" height="450">
+  <defs>
+    <clipPath id="maskText">
+      <rect x="0" y="0" width="600" height="450"/>
+      <!-- 遮盖左上角文字区域 -->
+      <rect x="-5" y="-5" width="280" height="120" fill="black"/>
+    </clipPath>
+    <linearGradient id="bgFade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#000000"/>
+      <stop offset="30%" style="stop-color:#000000"/>
+      <stop offset="100%" style="stop-color:#0a0a1a"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 原图作为背景 -->
+  <image href="file:///C:/Users/1/Downloads/450816914c904027657c2876ce9e55f9.png" 
+         x="0" y="0" width="600" height="450"
+         clip-path="url(#maskText)"/>
+  
+  <!-- 遮盖文字区域用渐变填充 -->
+  <rect x="0" y="0" width="200" height="90" fill="#000000" opacity="0.95"/>
+  
+  <!-- 柔和边缘过渡 -->
+  <rect x="180" y="0" width="40" height="90" fill="url(#bgFade)" opacity="0.7"/>
+  
+</svg>

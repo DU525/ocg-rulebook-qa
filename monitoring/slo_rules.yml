@@ -1,0 +1,101 @@
+groups:
+  - name: slo_recording_rules
+    interval: 15s
+    rules:
+      - record: job:sla_request_rate:rate5m
+        expr: rate(sla_request_total[5m])
+
+      - record: job:sla_error_rate:rate5m
+        expr: rate(sla_error_total[5m])
+
+      - record: job:sla_cache_hit_rate:ratio5m
+        expr: |
+          rate(sla_cache_hit_total{result="hit"}[5m])
+          /
+          (rate(sla_cache_hit_total{result="hit"}[5m]) + rate(sla_cache_hit_total{result="miss"}[5m]))
+
+      - record: job:sla_latency_p50:histogram_quantile
+        expr: histogram_quantile(0.50, sum(rate(sla_latency_seconds_bucket[5m])) by (le))
+
+      - record: job:sla_latency_p95:histogram_quantile
+        expr: histogram_quantile(0.95, sum(rate(sla_latency_seconds_bucket[5m])) by (le))
+
+      - record: job:sla_latency_p99:histogram_quantile
+        expr: histogram_quantile(0.99, sum(rate(sla_latency_seconds_bucket[5m])) by (le))
+
+      - record: job:sla_availability:ratio24h
+        expr: |
+          sum(rate(sla_request_total{status=~"2..|3..|4.."}[24h]))
+          /
+          sum(rate(sla_request_total[24h]))
+
+      - record: job:sla_error_budget_remaining:ratio
+        expr: |
+          1 - (
+            sum(rate(sla_request_total{status="5.."}[24h]))
+            /
+            sum(rate(sla_request_total[24h]))
+          ) / 0.001
+
+  - name: slo_alert_rules
+    interval: 30s
+    rules:
+      - alert: SLOAvailabilityBreached
+        expr: job:sla_availability:ratio24h < 0.999
+        for: 5m
+        labels:
+          severity: critical
+          slo_type: availability
+        annotations:
+          summary: "可用性 SLO 被突破"
+          description: "当前可用性 {{ $value | humanizePercentage }}，低于目标 99.9%"
+
+      - alert: SLOLatencyBreached
+        expr: job:sla_latency_p99:histogram_quantile > 2
+        for: 5m
+        labels:
+          severity: critical
+          slo_type: latency
+        annotations:
+          summary: "延迟 SLO 被突破"
+          description: "P99 延迟 {{ $value }}s，超过阈值 2s"
+
+      - alert: SLOErrorRateBreached
+        expr: job:sla_error_rate:rate5m / job:sla_request_rate:rate5m > 0.001
+        for: 5m
+        labels:
+          severity: warning
+          slo_type: error_rate
+        annotations:
+          summary: "错误率 SLO 被突破"
+          description: "当前错误率 {{ $value | humanizePercentage }}，超过目标 0.1%"
+
+      - alert: SLOErrorBudgetBurnRateHigh
+        expr: job:sla_error_budget_remaining:ratio < 0.5
+        for: 10m
+        labels:
+          severity: warning
+          slo_type: error_budget
+        annotations:
+          summary: "错误预算消耗过快"
+          description: "剩余错误预算 {{ $value | humanizePercentage }}，低于 50%"
+
+      - alert: SLOCacheHitRateLow
+        expr: job:sla_cache_hit_rate:ratio5m < 0.5
+        for: 10m
+        labels:
+          severity: warning
+          slo_type: cache_performance
+        annotations:
+          summary: "缓存命中率过低"
+          description: "当前缓存命中率 {{ $value | humanizePercentage }}，低于 50%"
+
+      - alert: SLORagasScoreLow
+        expr: sla_ragas_score < 0.8
+        for: 15m
+        labels:
+          severity: warning
+          slo_type: ragas_quality
+        annotations:
+          summary: "RAGAS 评分过低"
+          description: "{{ $labels.metric_name }} 评分 {{ $value }}，低于 0.8"

@@ -1,0 +1,225 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <!-- 背景渐变 -->
+    <linearGradient id="dmBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a3a;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 巫师帽渐变 -->
+    <linearGradient id="hatGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1d4ed8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 斗篷渐变 -->
+    <linearGradient id="capeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e3a8a;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#312e81;stop-opacity:0.6" />
+    </linearGradient>
+    
+    <!-- 魔杖金色 -->
+    <linearGradient id="staffGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 眼睛发光 -->
+    <filter id="eyeGlow">
+      <feGaussianBlur stdDeviation="3" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- 整体发光 -->
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="2" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- 光晕效果 -->
+    <radialGradient id="auraGlow">
+      <stop offset="0%" style="stop-color:#a855f7;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- 深色背景 -->
+  <rect width="400" height="400" fill="url(#dmBg)" rx="60" ry="60"/>
+  
+  <!-- 背景光晕 -->
+  <ellipse cx="200" cy="200" rx="180" ry="180" fill="url(#auraGlow)"/>
+  
+  <!-- ==================== 主体角色 ==================== -->
+  <g transform="translate(200, 180)">
+    
+    <!-- 深蓝色斗篷 - 飘动效果 -->
+    <path d="M-100 80 
+             Q-120 150 -90 220 
+             L-70 250 Q0 280 70 250 L90 220
+             Q120 150 100 80
+             Q80 120 60 180 L40 220 Q0 250 -40 220 L-60 180 Q-80 120 -100 80 Z"
+          fill="url(#capeGradient)" 
+          opacity="0.9"/>
+    
+    <!-- 斗篷边缘羽毛纹理 -->
+    <path d="M-85 200 Q-95 230 -80 260 L-70 250" stroke="#4338ca" stroke-width="2" fill="none" opacity="0.5"/>
+    <path d="M85 200 Q95 230 80 260 L70 250" stroke="#4338ca" stroke-width="2" fill="none" opacity="0.5"/>
+    
+    <!-- 黄色紧身衣主体 -->
+    <path d="M-40 60 
+             L-50 140 
+             Q0 160 50 140 
+             L40 60 
+             Q20 80 0 85 Q-20 80 -40 60 Z"
+          fill="#fbbf24" opacity="0.95"/>
+    
+    <!-- 红色马甲 -->
+    <path d="M-35 70 L-30 130 Q0 140 30 130 L35 70 Q20 85 0 85 Q-20 85 -35 70 Z"
+          fill="#dc2626" opacity="0.9"/>
+    
+    <!-- 黑色肩带 -->
+    <rect x="-30" y="75" width="12" height="40" fill="#1f2937" rx="2"/>
+    <rect x="18" y="75" width="12" height="40" fill="#1f2937" rx="2"/>
+    
+    <!-- ==================== 头部区域 ==================== -->
+    
+    <!-- 大巫师帽 - 标志性元素 -->
+    <path d="M-90 -10 
+             Q-95 -60 -60 -90 
+             L-40 -140 
+             Q-20 -170 0 -180
+             Q20 -170 40 -140
+             L60 -90
+             Q95 -60 90 -10
+             L80 0 Q40 10 0 12 Q-40 10 -80 0 Z"
+          fill="url(#hatGradient)"
+          stroke="#60a5fa"
+          stroke-width="1"/>
+    
+    <!-- 帽子边缘 -->
+    <ellipse cx="0" cy="0" rx="90" ry="25" fill="url(#hatGradient)" stroke="#60a5fa" stroke-width="1"/>
+    
+    <!-- 帽子金扣 -->
+    <circle cx="0" cy="-10" r="15" fill="url(#staffGold)" stroke="#d97706" stroke-width="2"/>
+    <circle cx="0" cy="-10" r="8" fill="#f59e0b"/>
+    
+    <!-- 帽檐阴影 -->
+    <ellipse cx="0" cy="5" rx="75" ry="15" fill="#1e3a8a" opacity="0.3"/>
+    
+    <!-- 面具/面部区域 -->
+    <path d="M-50 0 
+             Q-50 25 -30 35 
+             L30 35
+             Q50 25 50 0
+             L50 -20
+             Q25 -25 0 -25 Q-25 -25 -50 -20 Z"
+          fill="#1e40af"/>
+    
+    <!-- 露出的金发 -->
+    <path d="M-45 -5 Q-55 5 -50 20" stroke="#fcd34d" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M45 -5 Q55 5 50 20" stroke="#fcd34d" stroke-width="4" fill="none" stroke-linecap="round"/>
+    
+    <!-- 绿色发光眼睛 - Wizardmon标志性特征 -->
+    <ellipse cx="-22" cy="5" rx="12" ry="8" fill="#22c55e" filter="url(#eyeGlow)"/>
+    <ellipse cx="22" cy="5" rx="12" ry="8" fill="#22c55e" filter="url(#eyeGlow)"/>
+    
+    <!-- 眼睛瞳孔 -->
+    <ellipse cx="-22" cy="5" rx="3" ry="6" fill="#064e3b"/>
+    <ellipse cx="22" cy="5" rx="3" ry="6" fill="#064e3b"/>
+    
+    <!-- 眼睛高光 -->
+    <circle cx="-18" cy="2" r="2" fill="white" opacity="0.8"/>
+    <circle cx="26" cy="2" r="2" fill="white" opacity="0.8"/>
+    
+    <!-- ==================== 魔杖 ==================== -->
+    <!-- 握魔杖的手臂 -->
+    <path d="M50 80 Q70 100 85 130 L95 180 Q80 190 60 180 L55 140 Q50 100 50 80 Z"
+          fill="#fbbf24" opacity="0.95"/>
+    
+    <!-- 手套 -->
+    <path d="M55 140 Q60 160 70 180 L80 180 Q75 160 70 140 Z"
+          fill="#92400e"/>
+    
+    <!-- 魔杖主体 - 金色 -->
+    <line x1="80" y1="130" x2="140" y2="40" stroke="url(#staffGold)" stroke-width="8" stroke-linecap="round"/>
+    <line x1="80" y1="130" x2="140" y2="40" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+    
+    <!-- 魔杖头部 - 太阳形状 -->
+    <circle cx="145" cy="35" r="25" fill="url(#staffGold)" stroke="#d97706" stroke-width="2"/>
+    
+    <!-- 太阳光芒 -->
+    <g filter="url(#softGlow)">
+      <line x1="145" y1="5" x2="145" y2="-5" stroke="#fcd34d" stroke-width="3" stroke-linecap="round"/>
+      <line x1="145" y1="65" x2="145" y2="75" stroke="#fcd34d" stroke-width="3" stroke-linecap="round"/>
+      <line x1="115" y1="35" x2="105" y2="35" stroke="#fcd34d" stroke-width="3" stroke-linecap="round"/>
+      <line x1="175" y1="35" x2="185" y2="35" stroke="#fcd34d" stroke-width="3" stroke-linecap="round"/>
+      <line x1="124" y1="14" x2="116" y2="6" stroke="#fcd34d" stroke-width="3" stroke-linecap="round"/>
+      <line x1="166" y1="56" x2="174" y2="64" stroke="#fcd34d" stroke-width="3" stroke-linecap="round"/>
+      <line x1="166" y1="14" x2="174" y2="6" stroke="#fcd34d" stroke-width="3" stroke-linecap="round"/>
+      <line x1="124" y1="56" x2="116" y2="64" stroke="#fcd34d" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    
+    <!-- 太阳中心空洞 -->
+    <circle cx="145" cy="35" r="12" fill="#0f172a"/>
+    
+    <!-- ==================== 魔法效果 ==================== -->
+    
+    <!-- 魔法符文 - 斗篷内衬符号化 -->
+    <g opacity="0.4" stroke="#a5b4fc" stroke-width="1" fill="none">
+      <!-- 月亮符文 -->
+      <path d="M-70 140 Q-60 130 -70 120 Q-50 120 -50 140 Q-50 160 -70 160 Q-50 160 -50 180"/>
+      
+      <!-- 箭头符文 -->
+      <path d="M-50 150 L-40 155 L-50 160 L-40 165"/>
+      <path d="M50 150 L40 155 L50 160 L40 165"/>
+      
+      <!-- 星星符文 -->
+      <path d="M70 130 L75 140 L85 140 L78 147 L80 157 L70 150 L60 157 L62 147 L55 140 L65 140 Z"/>
+    </g>
+    
+    <!-- 魔法光点 -->
+    <g fill="#c084fc" filter="url(#softGlow)">
+      <circle cx="-100" cy="100" r="3">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="120" cy="80" r="2">
+        <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="-80" cy="180" r="2">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="1.8s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="90" cy="150" r="3">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="2.2s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    
+  </g>
+  
+  <!-- DCG 标识文字 -->
+  <g transform="translate(200, 345)">
+    <text x="0" y="0" 
+          text-anchor="middle" 
+          font-family="'Segoe UI', 'Arial Black', sans-serif" 
+          font-size="42" 
+          font-weight="900"
+          fill="url(#hatGradient)"
+          stroke="#60a5fa"
+          stroke-width="0.5"
+          letter-spacing="8">
+      DCG
+    </text>
+  </g>
+  
+  <!-- 底部装饰线 -->
+  <line x1="100" y1="365" x2="300" y2="365" stroke="url(#hatGradient)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  
+</svg>

@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <!-- 渐变定义 -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e1b4b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#312e81;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="wolfGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="energyLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0" />
+    </linearGradient>
+    
+    <!-- 发光滤镜 -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="glowStrong" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="400" height="400" fill="url(#bgGradient)" rx="40" ry="40"/>
+  
+  <!-- 电路板背景图案 -->
+  <g opacity="0.15" stroke="#3b82f6" stroke-width="0.5" fill="none">
+    <path d="M50 50 L100 50 L100 80 L130 80 L130 50 L180 50"/>
+    <path d="M350 50 L300 50 L300 80 L270 80 L270 50 L220 50"/>
+    <path d="M50 350 L100 350 L100 320 L130 320 L130 350 L180 350"/>
+    <path d="M350 350 L300 350 L300 320 L270 320 L270 350 L220 350"/>
+    <circle cx="100" cy="50" r="3" fill="#3b82f6"/>
+    <circle cx="300" cy="50" r="3" fill="#3b82f6"/>
+    <circle cx="100" cy="350" r="3" fill="#3b82f6"/>
+    <circle cx="300" cy="350" r="3" fill="#3b82f6"/>
+  </g>
+  
+  <!-- 狼形轮廓 - 简化抽象风格 -->
+  <g filter="url(#glow)" transform="translate(200, 160)">
+    <!-- 狼头部轮廓 -->
+    <path d="M-80 40 
+             Q-90 20 -70 0
+             Q-60 -30 -40 -50
+             L-30 -60
+             Q-20 -70 0 -65
+             Q20 -60 30 -50
+             L35 -55
+             Q45 -70 60 -60
+             Q80 -45 85 -20
+             Q90 10 75 40
+             L65 50
+             Q50 65 35 60
+             L25 65
+             Q10 75 -10 70
+             L-20 65
+             Q-35 70 -50 55
+             L-60 50
+             Q-75 65 -85 45 Z"
+          fill="url(#wolfGradient)" 
+          opacity="0.9"/>
+    
+    <!-- 眼睛 - 发光效果 -->
+    <ellipse cx="-25" cy="-15" rx="8" ry="5" fill="#f59e0b" filter="url(#glowStrong)"/>
+    <ellipse cx="20" cy="-20" rx="10" ry="6" fill="#f59e0b" filter="url(#glowStrong)"/>
+    
+    <!-- 能量线条 - 耳朵/鬃毛 -->
+    <path d="M-60 -40 L-70 -80 L-55 -55 L-60 -90 L-45 -60 L-50 -100" 
+          stroke="#3b82f6" stroke-width="2" fill="none" opacity="0.8" filter="url(#glow)"/>
+    <path d="M-35 -50 L-30 -85 L-20 -55 L-15 -90" 
+          stroke="#8b5cf6" stroke-width="2" fill="none" opacity="0.8" filter="url(#glow)"/>
+    <path d="M0 -55 L5 -85 L15 -55 L20 -90" 
+          stroke="#8b5cf6" stroke-width="2" fill="none" opacity="0.8" filter="url(#glow)"/>
+    <path d="M40 -45 L50 -80 L55 -50 L65 -85" 
+          stroke="#3b82f6" stroke-width="2" fill="none" opacity="0.8" filter="url(#glow)"/>
+  </g>
+  
+  <!-- DCG 文字 -->
+  <g transform="translate(200, 310)">
+    <text x="0" y="0" 
+          text-anchor="middle" 
+          font-family="'Segoe UI', 'Arial Black', sans-serif" 
+          font-size="48" 
+          font-weight="bold"
+          fill="url(#wolfGradient)"
+          filter="url(#glow)">
+      DCG
+    </text>
+  </g>
+  
+  <!-- 规则问答 中文 -->
+  <g transform="translate(200, 350)">
+    <text x="0" y="0" 
+          text-anchor="middle" 
+          font-family="'Microsoft YaHei', 'PingFang SC', sans-serif" 
+          font-size="16" 
+          font-weight="500"
+          fill="#c4b5fd"
+          letter-spacing="4">
+      规则问答
+    </text>
+  </g>
+  
+  <!-- 装饰能量线 -->
+  <line x1="60" y1="320" x2="140" y2="320" stroke="url(#energyLine)" stroke-width="2" filter="url(#glow)"/>
+  <line x1="260" y1="320" x2="340" y2="320" stroke="url(#energyLine)" stroke-width="2" filter="url(#glow)"/>
+  
+  <!-- 角落装饰 -->
+  <path d="M20 20 L50 20 L50 25 L25 25 L25 50 L20 50 Z" fill="#3b82f6" opacity="0.6"/>
+  <path d="M380 20 L350 20 L350 25 L375 25 L375 50 L380 50 Z" fill="#3b82f6" opacity="0.6"/>
+  <path d="M20 380 L50 380 L50 375 L25 375 L25 350 L20 350 Z" fill="#f59e0b" opacity="0.6"/>
+  <path d="M380 380 L350 380 L350 375 L375 375 L375 350 L380 350 Z" fill="#f59e0b" opacity="0.6"/>
+</svg>

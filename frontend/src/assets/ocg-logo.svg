@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="ocgBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cardGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+    <filter id="ocgGlow">
+      <feGaussianBlur stdDeviation="2" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 卡片背景 -->
+  <rect x="10" y="10" width="80" height="80" rx="8" fill="url(#ocgBg)" stroke="#60a5fa" stroke-width="2"/>
+  
+  <!-- 魔法卡图案 - 星星 -->
+  <g filter="url(#ocgGlow)">
+    <polygon points="50,20 56,35 72,35 59,45 64,60 50,50 36,60 41,45 28,35 44,35" 
+             fill="url(#cardGold)" stroke="#d97706" stroke-width="1"/>
+  </g>
+  
+  <!-- 魔法卡边框 -->
+  <rect x="20" y="65" width="60" height="20" rx="3" fill="none" stroke="#fbbf24" stroke-width="1.5"/>
+  
+  <!-- OCG 文字 -->
+  <text x="50" y="79" text-anchor="middle" font-family="Arial Black, sans-serif" 
+        font-size="12" font-weight="bold" fill="#fbbf24">OCG</text>
+  
+  <!-- 装饰线 -->
+  <line x1="15" y1="15" x2="85" y2="15" stroke="#60a5fa" stroke-width="1"/>
+  <line x1="15" y1="85" x2="85" y2="85" stroke="#60a5fa" stroke-width="1"/>
+</svg>

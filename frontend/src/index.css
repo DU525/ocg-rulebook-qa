@@ -1,0 +1,308 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================
+   数码宝贝 (DM) 主题配色
+   ======================================== */
+:root {
+  /* 主色 - 紫色系 */
+  --dm-primary-50: #faf5ff;
+  --dm-primary-100: #f3e8ff;
+  --dm-primary-200: #e9d5ff;
+  --dm-primary-300: #d8b4fe;
+  --dm-primary-400: #c084fc;
+  --dm-primary-500: #a855f7;
+  --dm-primary-600: #9333ea;
+  --dm-primary-700: #7c3aed;
+  --dm-primary-800: #6b21a8;
+  --dm-primary-900: #581c87;
+
+  /* 辅助色 - 蓝色 */
+  --dm-blue-400: #60a5fa;
+  --dm-blue-500: #3b82f6;
+  --dm-blue-600: #2563eb;
+
+  /* 点缀色 - 橙色/金色 */
+  --dm-accent-400: #fbbf24;
+  --dm-accent-500: #f59e0b;
+  --dm-accent-600: #d97706;
+
+  /* 背景色 */
+  --dm-bg-dark: #1e1b4b;
+  --dm-bg-darker: #0f0e2a;
+}
+
+/* ========================================
+   游戏王 (OCG) 主题配色
+   ======================================== */
+:root {
+  /* 主色 - 蓝色系 */
+  --ocg-primary-50: #eff6ff;
+  --ocg-primary-100: #dbeafe;
+  --ocg-primary-200: #bfdbfe;
+  --ocg-primary-300: #93c5fd;
+  --ocg-primary-400: #60a5fa;
+  --ocg-primary-500: #3b82f6;
+  --ocg-primary-600: #2563eb;
+  --ocg-primary-700: #1d4ed8;
+  --ocg-primary-800: #1e40af;
+  --ocg-primary-900: #1e3a8a;
+}
+
+/* ========================================
+   动画定义
+   ======================================== */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 0.6s ease-in-out infinite;
+}
+
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+/* 发光效果 */
+@keyframes glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px var(--dm-primary-400));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px var(--dm-primary-500));
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* 脉冲能量效果 */
+@keyframes pulse-energy {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-energy {
+  animation: pulse-energy 2s ease-in-out infinite;
+}
+
+/* ========================================
+   滚动条样式
+   ======================================== */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #c1c1fd;
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #a5a8fd;
+}
+
+/* DM主题深色滚动条 */
+.scrollbar-dm::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-dm::-webkit-scrollbar-track {
+  background: rgba(30, 27, 75, 0.5);
+  border-radius: 3px;
+}
+
+.scrollbar-dm::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.6);
+  border-radius: 3px;
+}
+
+.scrollbar-dm::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.8);
+}
+
+/* ========================================
+   消息气泡样式
+   ======================================== */
+.message-bubble-user {
+  background: linear-gradient(135deg, var(--dm-primary-600), var(--dm-primary-700));
+  color: white;
+  border-radius: 16px 16px 4px 16px;
+}
+
+.message-bubble-assistant {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  border-radius: 16px 16px 16px 4px;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.15);
+}
+
+.message-bubble-user.dm-mode {
+  background: linear-gradient(135deg, var(--dm-primary-600), var(--dm-primary-800));
+}
+
+.message-bubble-assistant.dm-mode {
+  background: linear-gradient(135deg, #faf5ff, #f3e8ff);
+  border-left: 3px solid var(--dm-primary-400);
+}
+
+/* ========================================
+   引用高亮样式
+   ======================================== */
+.citation-highlight {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(59, 130, 246, 0.1));
+  border-left: 3px solid var(--dm-primary-400);
+  transition: all 0.2s ease;
+}
+
+.citation-highlight:hover {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(59, 130, 246, 0.2));
+}
+
+/* ========================================
+   按钮样式
+   ======================================== */
+.btn-primary-dm {
+  background: linear-gradient(135deg, var(--dm-primary-500), var(--dm-primary-600));
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-primary-dm:hover {
+  background: linear-gradient(135deg, var(--dm-primary-600), var(--dm-primary-700));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+}
+
+.btn-primary-dm:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ========================================
+   游戏切换标签页
+   ======================================== */
+.game-tab {
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.game-tab-ocg {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--ocg-primary-600);
+  border: 2px solid transparent;
+}
+
+.game-tab-ocg:hover {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.game-tab-ocg.active {
+  background: var(--ocg-primary-500);
+  color: white;
+}
+
+.game-tab-dm {
+  background: rgba(168, 85, 247, 0.1);
+  color: var(--dm-primary-600);
+  border: 2px solid transparent;
+}
+
+.game-tab-dm:hover {
+  background: rgba(168, 85, 247, 0.2);
+}
+
+.game-tab-dm.active {
+  background: linear-gradient(135deg, var(--dm-primary-500), var(--dm-primary-600));
+  color: white;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+}
+
+/* ========================================
+   文档预览抽屉动画
+   ======================================== */
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+/* ========================================
+   打字机光标闪烁
+   ======================================== */
+@keyframes cursor-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+.typing-cursor::after {
+  content: '|';
+  display: inline-block;
+  animation: cursor-blink 0.8s ease-in-out infinite;
+  color: var(--dm-primary-500);
+  font-weight: bold;
+  margin-left: 1px;
+}
+
+.typing-cursor.dm-mode::after {
+  color: var(--dm-primary-500);
+}
+
+/* ========================================
+   Markdown内容打字机过渡
+   ======================================== */
+.markdown-content {
+  transition: opacity 0.15s ease;
+}
+
+.markdown-content.typing {
+  opacity: 0.95;
+}

@@ -1,0 +1,39 @@
+groups:
+  - name: ocg_rulebook_alerts
+    interval: 30s
+    rules:
+      - alert: LowQPS
+        expr: rate(http_requests_total[1m]) < 1000
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "QPS 低于 1000"
+          description: "当前 QPS: {{ $value }}，低于阈值 1000"
+
+      - alert: HighP99Latency
+        expr: histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le)) > 0.005
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "P99 延迟超过 5ms"
+          description: "当前 P99 延迟: {{ $value }}秒，超过阈值 5ms"
+
+      - alert: LowCacheHitRate
+        expr: cache_hit_rate < 0.5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "缓存命中率低于 50%"
+          description: "当前缓存命中率: {{ $value | humanizePercentage }}，低于阈值 50%"
+
+      - alert: LowFaithfulness
+        expr: ragas_faithfulness < 0.8
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Faithfulness 低于 0.8"
+          description: "当前 Faithfulness: {{ $value }}，低于阈值 0.8"

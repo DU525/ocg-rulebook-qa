@@ -1,0 +1,26 @@
+{
+    "project_dir": "C:\\Users\\1\\Downloads\\ocg-rulebook-qa\\ocg-rulebook-qa",
+    "check_interval_seconds": 60,
+    "max_restart_attempts": 3,
+    "restart_delay_seconds": 5,
+    "ports": {
+        "3000": {
+            "name": "Vite前端",
+            "process": "node",
+            "cwd": "frontend",
+            "start_cmd": ["npm", "run", "dev"],
+            "port": 3000
+        },
+        "5000": {
+            "name": "Flask后端",
+            "process": "python",
+            "cwd": "backend",
+            "start_cmd": ["python", "run.py"],
+            "port": 5000
+        }
+    },
+    "alert": {
+        "enabled": true,
+        "notify_mavis": true
+    }
+}
