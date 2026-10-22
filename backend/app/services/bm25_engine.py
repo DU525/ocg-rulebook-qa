@@ -694,6 +694,16 @@ class BM25Engine:
         except Exception:
             query_keywords = set(jieba.cut(query))
 
+        # Chinese questions may contain Japanese card names. Keep bracketed
+        # names intact: jieba can otherwise reduce a distinctive name to a
+        # generic token, losing the strongest retrieval signal.
+        card_name_features = {
+            name.strip()
+            for name in re.findall(r'[「『【〈《"“]([^」』】〉》"”]{2,})[」』】〉》"”]', query)
+            if name.strip()
+        }
+        query_keywords.update(card_name_features)
+
         if not query_keywords:
             return []
 
@@ -701,12 +711,16 @@ class BM25Engine:
         for idx, doc_info in self._fallback_index.items():
             doc_keywords = set(doc_info.get('keywords', []))
             overlap = query_keywords & doc_keywords
+            content = doc_info.get('content', '')
+            content_lower = content.lower()
+            exact_name_hits = [
+                name for name in card_name_features
+                if name.lower() in content_lower
+            ]
 
-            if overlap:
+            if overlap or exact_name_hits:
                 score = len(overlap) / len(query_keywords)
-
-                content = doc_info.get('content', '')
-                content_lower = content.lower()
+                score += 1.0 * len(exact_name_hits)
                 for kw in query_keywords:
                     if kw in content_lower:
                         score += 0.5

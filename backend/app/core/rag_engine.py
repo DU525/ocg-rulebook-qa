@@ -320,7 +320,7 @@ class RAGEngine:
         question: str,
         retrieval_results: List[RetrievalResult],
         conversation_history: Optional[List[Dict]] = None,
-        temperature: float = 0.3,
+        temperature: float = 0.0,
         max_tokens: int = 1500,
         system_prompt: Optional[str] = None,
     ) -> RAGResponse:
@@ -344,7 +344,7 @@ class RAGEngine:
         question: str,
         retrieval_results: List[RetrievalResult],
         conversation_history: Optional[List[Dict]] = None,
-        temperature: float = 0.3,
+        temperature: float = 0.0,
         max_tokens: int = 1500,
         system_prompt: Optional[str] = None,
     ) -> Generator[str, None, None]:
@@ -392,7 +392,7 @@ class RAGEngine:
         question: str,
         top_k: Optional[int] = None,
         conversation_history: Optional[List[Dict]] = None,
-        temperature: float = 0.3,
+        temperature: float = 0.0,
         max_tokens: int = 1500,
         system_prompt: str = None,
         use_intent_strategy: bool = True,
@@ -421,7 +421,7 @@ class RAGEngine:
         question: str,
         top_k: Optional[int] = None,
         conversation_history: Optional[List[Dict]] = None,
-        temperature: float = 0.3,
+        temperature: float = 0.0,
         max_tokens: int = 1500,
         system_prompt: str = None,
         use_intent_strategy: bool = True,
@@ -448,7 +448,7 @@ class RAGEngine:
         text: str,
         image_base64: str = None,
         top_k: int = 5,
-        temperature: float = 0.3,
+        temperature: float = 0.0,
         max_tokens: int = 1500,
     ) -> RAGResponse:
         """多模态 RAG——文字检索 + 图像理解
