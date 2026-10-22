@@ -1,0 +1,38 @@
+# Tooling configuration only. This repository is an application, not a
+# distributable package, so there is no [project] table and no build system.
+#
+#   ruff   -- configured conservatively, see "Linting policy" in CONTRIBUTING.md
+#   pytest -- test discovery for the unit-test suite in tests/
+#
+# The backend keeps its own pinned runtime dependencies in
+# backend/requirements.txt.
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+src = ["backend", "tests", "scripts"]
+exclude = [
+    ".git",
+    "node_modules",
+    "data",
+    "frontend/dist",
+]
+
+[tool.ruff.lint]
+# Deliberately narrow: these are the rules that catch real defects (undefined
+# names, duplicate definitions, broken implicit string concatenation). The
+# broader style rules are not enforced yet -- see CONTRIBUTING.md.
+select = ["E9", "F63", "F7", "F82"]
+ignore = ["F722"]
+
+[tool.ruff.lint.per-file-ignores]
+# Scripts that intentionally import after mutating sys.path.
+"backend/tests/*" = ["E402"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["backend"]
+addopts = "-ra"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]

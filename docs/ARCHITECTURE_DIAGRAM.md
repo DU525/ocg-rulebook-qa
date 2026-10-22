@@ -1,5 +1,11 @@
 # OCG/DM规则书RAG问答系统 - 架构图
 
+> **文档状态（2026-10-22）**：本文包含 FastAPI 异步架构的描述，而该实现不在本仓库中 ——
+> 本仓库的后端主线是 Flask（`backend/run.py`，`threaded=True`）。文中与 FastAPI 相关的吞吐
+> 读数请按「历史本地测量」理解，不能从本仓库复现；可运行的代码路径以 `backend/` 与
+> [README.md](../README.md) 为准。若只想了解当前系统，跳过带 FastAPI 的小节。
+
+
 > 格式：Mermaid（支持Markdown渲染）
 > 生成日期：2026-05-23
 
@@ -435,10 +441,10 @@ graph TB
         A7 --> A2
     end
 
-    subgraph 性能对比
-        C1[Flask QPS: 180<br/>p99延迟: 250ms]
-        C2[FastAPI QPS: 5,100<br/>p99延迟: 45ms]
-        C3[提升: +2,733%<br/>延迟降低: 82%]
+    subgraph 性能记录（本地压测，产物未入库）
+        C1[QPS: 5,100<br/>缓存命中路径]
+        C2[p99 延迟: 45ms]
+        C3[错误率: <0.25%]
     end
 
     C1 --> C2 --> C3

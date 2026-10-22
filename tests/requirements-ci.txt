@@ -1,0 +1,15 @@
+# Minimal dependency set for the unit tests in tests/.
+#
+# Verified empirically: the suite passes with torch, sentence-transformers,
+# text2vec, whoosh, redis, simhash, tenacity, beautifulsoup4, peft, langchain
+# and the OCR stack absent. Keeping CI light means it finishes in under a
+# minute instead of downloading 2 GB of wheels.
+#
+# Only add something here if a test in tests/ actually fails without it.
+pytest>=7.4
+prometheus-client>=0.19
+flask>=2.2
+flask-cors>=4.0
+faiss-cpu>=1.7.4
+numpy>=1.24
+aiohttp>=3.9

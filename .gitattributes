@@ -1,0 +1,22 @@
+# Normalise line endings on checkout so Windows and Linux agree.
+* text=auto eol=lf
+
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+
+# Binary assets: never diff or convert.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.faiss binary
+*.pkl binary
+*.bin binary
+*.pt  binary
+*.npy binary
+*.parquet binary
+
+# Generated files that should not pollute a diff.
+package-lock.json linguist-generated=true

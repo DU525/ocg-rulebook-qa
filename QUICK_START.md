@@ -145,4 +145,3 @@ python scripts/init_knowledge_base.py  # 初始化向量数据库
 
 - 了解项目技术栈：看 [README.md](README.md)
 - 看优化历程：看 [TECHNICAL_BLOG.md](docs/TECHNICAL_BLOG.md)
-- 准备面试：看 [INTERVIEW_GUIDE.md](docs/INTERVIEW_GUIDE.md)

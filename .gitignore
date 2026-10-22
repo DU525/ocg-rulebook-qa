@@ -1,77 +1,102 @@
-# Python
+# Layered by reason, not appended by accident.
+#   1 secrets  2 python  3 node  4 build  5 data/vectors  6 models
+#   7 logs     8 os/ide  9 tooling  10 generated output
+
+# ---------------------------------------------------------------- 1. secrets
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env.local
+*.pem
+*.key
+*.p12
+*.keystore
+
+# ----------------------------------------------------------------- 2. python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 *.egg
 *.egg-info/
-dist/
-build/
-*.whl
-
-# Virtual Environment
+.venv/
 venv/
 env/
 ENV/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+coverage/
 
-# Node.js
+# ------------------------------------------------------------------- 3. node
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.vite/
+.pnpm-store/
+
+# ------------------------------------------------------------------ 4. build
 dist/
+build/
+*.whl
+frontend/dist/
 
-# Environment Variables
-.env
-.env.*
-!.env.example
-
-# Database
+# ------------------------------------------------- 5. data, vector stores, db
+# Nothing under data/ is committed: the rule corpus and the FAISS index are
+# hundreds of megabytes and are rebuilt by scripts/init_knowledge_base.py.
+data/
+!data/README.md
+!data/.gitkeep
+vector_db/
+*.faiss
+*.index
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.bin
+*.h5
+*.parquet
+*.arrow
 *.db
 *.sqlite
 *.sqlite3
+*.db-shm
+*.db-wal
 
-# IDE
+# ----------------------------------------------------------------- 6. models
+models/
+cache/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+
+# ------------------------------------------------------------------- 7. logs
+*.log
+logs/
+# Locust result dumps: large, and not reproducible from the repository.
+locust_*.csv
+locust_*.html
+*_stats.csv
+*_stats_history.csv
+*_failures.csv
+
+# ---------------------------------------------------------------- 8. os / ide
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-
-# OS
 .DS_Store
 Thumbs.db
 
-# Logs
-*.log
-logs/
-
-# FAISS Index
-*.faiss
-*.index
-
-# Vector Store Data
-data/*_vectors.npy
-data/*_index.bin
-data/*_chunks.json
-data/ocg_chroma_db/
-data/dm_vectors.npy
-data/dm_index.bin
-data/dm_rules_chunks.json
-
-# SQLite WAL/SHM
-*.db-shm
-*.db-wal
-
-# Models
-models/
-cache/
-
-data/chunks/*.bin
-data/chunks/*.json
-data/chunks/*.npy
-
-# AI Coding Tool Directories
+# ------------------------------------------------------- 9. AI coding tooling
 .opencode/
 .trae/
 .mavis/
@@ -79,11 +104,9 @@ data/chunks/*.npy
 .claude/
 .cursor/
 
-# pytest cache
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Build outputs
-coverage/
-*.egg-info/
+# ------------------------------------------- 10. generated and scratch output
+outputs/
+tmp/
+*.bak
+*.orig
+*.rej

@@ -17,7 +17,7 @@
 | **RAGAS Faithfulness | 0.90 | 答案忠实度，超行业基准0.80 |
 | **recall@5 | 92% | 检索精度，超FastGPT/Dify |
 | **缓存命中率 | 85% | 三级缓存架构 |
-| **QPS** | 5,100 | FastAPI异步架构，提升2,733% |
+| **QPS** | 5,100 | 缓存命中路径 · Locust 压测（历史记录） |
 | **p99延迟** | 45ms | 极致性能优化 |
 | **错误率** | <0.25% | 生产级稳定性 |
 
@@ -37,11 +37,11 @@
 
 **Cross-Encoder重排Top 10，延迟45ms换4个百分点精度
 
-### 3. 架构升级（Week 3）Flask → FastAPI
+### 3. 架构改造（Week 3）：异步化与检索融合
 
-**异步化改造**：aiohttp+asyncio.to_thread+aiosqlite
+**异步化改造**：aiohttp + asyncio.to_thread + aiosqlite（HTTP 层仍为 Flask threaded）
 
-**性能提升**：QPS从180→5,100，p99延迟从250ms→45ms
+**性能记录**：缓存命中路径 QPS 5,100，p99 45 ms（本地压测，产物未入库，无法从本仓库复现）
 
 ### 4. 工程完备（Week 4）压测 + 监控
 
@@ -56,7 +56,7 @@
 | 层级 | 技术选型 |
 |------|----------|
 | **前端** | React 18 + TypeScript + Vite + TailwindCSS |
-| **后端** | Flask + FastAPI |
+| **后端** | Flask（WSGI，threaded）+ aiohttp 异步调用 |
 | **向量引擎** | FAISS IndexHNSWFlat |
 | **Embedding** | text2vec-base-chinese |
 | **LLM** | MiniMax M2.7 + OpenAI降级方案 |
@@ -102,7 +102,7 @@
 
 **技术能力**：
 - 完整RAG系统搭建与优化
-- 全栈开发能力（React + Flask/FastAPI
+- 全栈开发能力（React + Flask
 - 性能优化与压测监控
 - 工程化实践（缓存、异步、可观测性）
 

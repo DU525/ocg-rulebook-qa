@@ -1,0 +1,43 @@
+# Incremental hygiene: these hooks only run on files that changed, so they do
+# not force a wholesale reformat of the legacy codebase.
+#
+#   pip install pre-commit
+#   pre-commit install
+#
+# CI runs the same correctness checks; the hooks here add the cheap hygiene
+# checks that are not worth a CI job of their own.
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^(backend/tests/test_dataset\.json|frontend/src/assets/)
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+        exclude: ^backend/tests/test_dataset\.json$
+      - id: check-merge-conflict
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: [--maxkb=2048]
+      - id: mixed-line-ending
+        args: [--fix=lf]
+        exclude: \.(bat|cmd|ps1)$
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.5.7
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^(backend|tests|scripts)/.*\.py$
+
+  - repo: local
+    hooks:
+      - id: no-html-escaped-source
+        name: reject HTML-escaped Python source (&lt; &gt; &amp;)
+        entry: python scripts/check_escaped_source.py
+        language: system
+        files: \.py$
+        pass_filenames: true

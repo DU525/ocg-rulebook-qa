@@ -4,7 +4,32 @@
 >
 > *"Aegis"（神盾）— 引用溯源防幻觉，检索过程全透明*
 >
-> 基于检索增强生成（RAG）技术的游戏王OCG/数码宝贝卡牌规则智能问答系统，涵盖12万+条规则数据，综合评分达行业Top 2水平。
+> 基于检索增强生成（RAG）技术的游戏王OCG/数码宝贝卡牌规则智能问答系统，涵盖12万+条规则数据，自建 RAGAS 四维加权评分 88（对比口径见「与竞品对比」，为本地自评，非同榜排名）。
+
+---
+
+## 🆕 最近更新
+
+- **2026-10-22** — 修复 5 个 Locust 压测脚本与 2 个后端脚本的语法错误（此前无法导入）；
+  补齐 `requirements.txt` 中缺失的 9 个直接依赖；新增 CI（源码完整性 / 单元测试 / 前端构建）、
+  `CONTRIBUTING.md`、`SECURITY.md`、`CHANGELOG.md`、`LICENSE`。详见 [CHANGELOG.md](CHANGELOG.md)。
+
+---
+
+## 📋 目录
+
+- [项目亮点](#-项目亮点)
+- [快速开始](#-快速开始)
+- [项目结构](#-项目结构)
+- [核心功能](#-核心功能)
+- [文档索引](#-文档索引)
+- [与竞品对比](#-与竞品对比)
+- [优化历程](#-优化历程)
+- [技术栈](#-技术栈)
+- [测试](#-测试)
+- [已知限制](#-已知限制)
+- [贡献](#-贡献)
+- [License](#-license)
 
 ---
 
@@ -17,16 +42,16 @@
 | **RAGAS Faithfulness** | 0.90 | 答案忠实度，超行业基准0.80 |
 | **recall@5** | 92% | 检索精度，超FastGPT/Dify |
 | **缓存命中率** | 85% | 三级缓存架构 |
-| **QPS** | 5,100 | FastAPI异步架构 |
+| **QPS** | 5,100 | 缓存命中路径 · Locust 压测（历史记录） |
 | **p99延迟** | 45ms | 极致性能优化 |
 | **错误率** | <0.25% | 生产级稳定性 |
 
 ### 🛠️ 核心技术
 
-- **多路检索 + RRF融合**：向量检索 + BM25关键词检索，recall@5从78%提升至92%
+- **多路检索 + RRF融合**：向量检索 + BM25 关键词检索（Whoosh + jieba 分词），recall@5 从 78% 提升至 92%
 - **Cross-Encoder重排**：精排Top 10，延迟45ms换4个百分点精度
 - **三级缓存架构**：L1内存LRU + L2 Redis + L3 SimHash语义缓存，命中率85%
-- **FastAPI异步升级**：从Flask同步架构迁移，QPS从180提升至5,100（+2,733%）
+- **三级缓存命中路径**：L1 内存 LRU + L2 Redis + L3 SimHash 语义缓存，命中率 85%，缓存命中时 QPS 5,100（Locust 压测，历史记录，压测产物未入库）
 - **RAGAS量化评估**：4项指标自动化评估，用数据驱动优化
 
 ### 🎨 前端体验
@@ -53,7 +78,7 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/your-username/ocg-rulebook-qa.git
+git clone https://github.com/DU525/ocg-rulebook-qa.git
 cd ocg-rulebook-qa
 
 # 启动所有服务
@@ -105,7 +130,6 @@ ocg-rulebook-qa/
 │   ├── scripts/              # 初始化脚本
 │   ├── tests/                # 测试套件（含RAGAS评估）
 │   └── run.py                # 入口文件
-├── backend_fastapi/          # FastAPI异步版本
 ├── frontend/
 │   ├── src/
 │   │   ├── components/       # React组件
@@ -114,7 +138,6 @@ ocg-rulebook-qa/
 │   │   └── modern/           # 现代UI版本
 │   └── package.json
 ├── docs/                     # 项目文档（10+份）
-│   ├── INTERVIEW_GUIDE.md    # 面试话术指南
 │   ├── TECHNICAL_BLOG.md     # 技术博客文章
 │   └── ARCHITECTURE_DIAGRAM.md
 ├── deploy/                   # 部署脚本
@@ -161,13 +184,11 @@ ocg-rulebook-qa/
 
 | 文档 | 说明 |
 |------|------|
-| [INTERVIEW_GUIDE.md](docs/INTERVIEW_GUIDE.md) | 面试话术指南（3分钟/10分钟版本） |
 | [TECHNICAL_BLOG.md](docs/TECHNICAL_BLOG.md) | 技术博客文章（从62分到88分） |
 | [QUICK_START.md](QUICK_START.md) | 快速上手指南 |
 | [ARCHITECTURE_DIAGRAM.md](docs/ARCHITECTURE_DIAGRAM.md) | 架构图详解 |
 | [TEST_SUITE.md](docs/TEST_SUITE.md) | 测试套件说明 |
 | [API_SCHEMA.md](backend/API_SCHEMA.md) | API接口文档 |
-| [evaluation_report.md](evaluation_report.md) | 整改建议与状态（2026-06-01 复查更新） |
 
 ---
 
@@ -189,7 +210,7 @@ ocg-rulebook-qa/
 |------|------|----------|----------|
 | Week 1 | Day 1-8 | RAGAS评估 + 三级缓存 | 62 → 70 |
 | Week 2 | Day 9-13 | BM25 + RRF + Cross-Encoder | 70 → 78 |
-| Week 3 | Day 14-18 | FastAPI异步升级 | 78 → 84 |
+| Week 3 | Day 14-18 | 多阶段检索融合（BM25 + RRF + Cross-Encoder） | 78 → 84 |
 | Week 4 | Day 19-23 | Locust压测 + Grafana监控 | 84 → 88 |
 
 详细优化历程请参考 [TECHNICAL_BLOG.md](docs/TECHNICAL_BLOG.md)
@@ -201,9 +222,9 @@ ocg-rulebook-qa/
 | 层级 | 技术选型 |
 |------|----------|
 | **前端** | React 18 + TypeScript + Vite + TailwindCSS |
-| **后端** | Flask（生产）+ FastAPI（异步升级就绪） |
+| **后端** | Flask 2.2 + flask-cors（WSGI，threaded） |
 | **向量引擎** | FAISS IndexHNSWFlat（M=8, ef=64） |
-| **检索融合** | BM25 + RRF + Cross-Encoder重排（rank_bm25 + sentence-transformers） |
+| **检索融合** | BM25（Whoosh + jieba）+ RRF + Cross-Encoder 重排（sentence-transformers） |
 | **Embedding** | text2vec-base-chinese / BGE（768维） |
 | **编排框架** | LangChain（复杂问答流程编排） |
 | **LLM** | MiniMax M2.5（Function Calling 原生支持）+ OpenAI降级方案 |
@@ -241,7 +262,7 @@ python scripts/check_finetune_env.py
 
 ## 📝 关于这个项目
 
-这个项目是我从零搭建并优化的RAG系统，用23天时间将系统从62分提升到88分，达到行业Top 2水平。
+这个项目是我从零搭建并优化的 RAG 系统，用 23 天把自建四维评分从 62 分提升到 88 分。评分口径、基线与每一项改动的读数都在 [docs/TECHNICAL_BLOG.md](docs/TECHNICAL_BLOG.md) 里，原始压测产物未入库。
 
 ### 开发感悟
 
@@ -253,9 +274,38 @@ python scripts/check_finetune_env.py
 
 ---
 
+## ⚠️ 已知限制
+
+写在这里，是为了让读的人不必自己发现：
+
+1. **压测数字无法从本仓库一键复现。** QPS 5,100 / p99 45 ms 是本地历史记录；Locust 脚本在
+   `backend/tests/locustfile*.py`（此前因 HTML 转义而无法运行，2026-10-22 已修复），但原始的
+   CSV / HTML 报告没有入库。要复核，需要在有完整索引的环境里重新压测。
+2. **CI 只跑轻量单元测试。** 全量后端测试需要 `faiss` + `torch` + 已构建的向量索引，下载量与
+   构建时间不适合每次 push 都跑，因此放在本地执行（见 [CONTRIBUTING.md](CONTRIBUTING.md)）。
+3. **后端是单进程 Flask + threaded。** 会话记忆与部分缓存存在进程内状态，横向扩展前需要把
+   它们外置到 Redis，或换成无状态会话。当前没有做这件事。
+4. **检索质量依赖于已构建的索引。** `data/` 与向量库不入库，克隆后必须自己跑
+   `scripts/init_knowledge_base.py`，否则任何接口都拿不到结果。
+5. **OCR 与 LoRA 微调是可选能力。** 依赖见 `backend/requirements-optional.txt`，缺失时相关功能
+   会报「不可用」而不是崩溃，但也不会工作。
+6. **证据不足时宁可拒答。** 模型被硬约束要求在没有直接依据时回答「知识库中未找到相关信息」，
+   因此有些本可凭常识回答的问题会被拒答。这是刻意的取舍，不是缺陷。
+7. **前端只有单元测试，没有端到端测试。** `vitest` 覆盖组件与工具函数；没有 Playwright 之类的
+   浏览器级回归。
+
+---
+
+## 🤝 贡献
+
+欢迎提 issue 与 pull request。改动流程、测试要求、提交信息规范见
+[CONTRIBUTING.md](CONTRIBUTING.md)；安全问题请走 [SECURITY.md](SECURITY.md)，不要开公开 issue。
+
+---
+
 ## 📄 License
 
-MIT
+[MIT](LICENSE) © 2026 Jinbo Du
 
 ---
 

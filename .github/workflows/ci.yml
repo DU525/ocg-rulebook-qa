@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integrity:
+    name: Source integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Every Python file must at least parse. This job exists because files
+      # were previously committed that could not be compiled -- a defect the
+      # test suite cannot catch, because the test never gets to run.
+      - name: Every Python file parses
+        run: |
+          python -m compileall -q backend scripts tests
+          echo "all Python files compile"
+
+      # Pasted files arrive with -&gt; instead of -> and fail with a SyntaxError
+      # far from the actual cause. Check the token stream, not the text.
+      - name: No HTML-escaped source
+        run: python scripts/check_escaped_source.py $(git ls-files '*.py')
+
+      # pip install -r backend/requirements.txt used to produce a backend that
+      # could not start. Compare imports against declarations, statically.
+      - name: Every backend import is declared
+        run: python scripts/check_declared_deps.py
+
+  unit:
+    name: Unit tests (no model downloads)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: tests/requirements-ci.txt
+
+      - name: Install minimal test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r tests/requirements-ci.txt
+
+      # tests/ holds the tests that run without torch, sentence-transformers or
+      # a built vector index. backend/tests/ holds the integration, RAGAS and
+      # load-test harnesses that need the full stack; see CONTRIBUTING.md.
+      - name: Run unit tests
+        run: python -m pytest tests -v
+
+  frontend:
+    name: Frontend build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Type-check and build
+        run: npm run build
