@@ -1,6 +1,6 @@
 # LLM API 协议分析
 
-> 本文档详细分析 OpenAI 兼容 API 的核心协议，用于面试展示"深入理解 LLM API 底层机制"
+> 本文档分析 OpenAI 兼容 API 的核心协议，说明本系统为什么直接对接该协议，而不是包一层 SDK
 
 ---
 
@@ -109,7 +109,7 @@ fetch(url, {
 | Provider | 实现方式 | 依赖 | 用途 |
 |----------|----------|------|------|
 | `OpenAICompatibleProvider` | OpenAI SDK | `openai` 包 | 日常使用 |
-| `RawHTTPProvider` | 纯 HTTP 请求 | `requests` 包 | 面试展示底层协议 |
+| `RawHTTPProvider` | 纯 HTTP 请求 | `requests` 包 | 协议调试与问题定位 |
 | `MiniMaxProvider` | 继承 OpenAICompatibleProvider | `openai` 包 | MiniMax 专用 |
 
 ### 4.2 关键代码位置

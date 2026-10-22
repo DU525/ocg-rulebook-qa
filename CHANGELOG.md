@@ -37,10 +37,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `jieba`, `rank-bm25`, `redis`, `simhash`, `tenacity`, `text2vec` and
   `whoosh` are imported directly by the backend but were not declared, so a
   fresh install was not a runnable install.
-- README referenced a `backend_fastapi/` directory and two documents
-  (`docs/INTERVIEW_GUIDE.md`, `evaluation_report.md`) that do not exist in the
-  repository.
+- README referenced a `backend_fastapi/` directory and two documents that do
+  not exist in the repository.
 - The clone command in the README used a `your-username` placeholder.
+
+### Removed
+
+- `SHOWCASE.md`. It was not project documentation: its title was "referral
+  presentation plan", it carried a "reasons to recommend to recruiters"
+  section, an unfilled `[your GitHub link]` placeholder, and a note about which
+  files to send to a senior schoolmate before an interview. Material whose
+  purpose is to improve how the project reads in an interview does not belong
+  in the repository that contains the project. The file is archived locally.
+- Career framing from the documentation and from one docstring: the API protocol
+  note no longer says it exists "for interview display", the screenshot guide
+  no longer mentions referral showcases, and the multimodal provider docstring
+  no longer calls itself an "interview bonus point".
 
 ### Changed
 

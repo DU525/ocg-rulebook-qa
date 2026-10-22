@@ -24,7 +24,7 @@ class MiniMaxVisionProvider(BaseLLMProvider):
         temperature: float = 0.3,
         max_tokens: int = 1500
     ) -> str:
-        """图文混合生成——核心面试加分项
+        """图文混合生成——在纯文本检索之外补充图片证据
         Args:
             text: 文字提示（如"请描述这张卡牌的效果"）
             image_base64: base64 编码的图片
