@@ -26,6 +26,7 @@ OCG/DM 规则问答测试数据集生成器
 import json
 import os
 import random
+from pathlib import Path
 import re
 from collections import Counter
 from typing import List, Dict, Any, Tuple, Optional
@@ -33,12 +34,14 @@ from typing import List, Dict, Any, Tuple, Optional
 
 # ==================== 配置常量 ====================
 
-# 数据源路径
-OCG_RULES_PATH = r"C:\Users\1\Downloads\ocg-rulebook-qa\ocg-rulebook-qa\data\chunks\ocg_rules_chunks.json"
-DM_RULES_PATH = r"C:\Users\1\Downloads\ocg-rulebook-qa\ocg-rulebook-qa\data\chunks\dm_rules_chunks.json"
+# 数据源路径（仓库相对，可用 OCG_DATA_DIR 覆盖）
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = Path(os.environ.get("OCG_DATA_DIR", REPO_ROOT / "data" / "chunks"))
+OCG_RULES_PATH = str(DATA_DIR / "ocg_rules_chunks.json")
+DM_RULES_PATH = str(DATA_DIR / "dm_rules_chunks.json")
 
 # 输出路径
-OUTPUT_PATH = r"C:\Users\1\Downloads\ocg-rulebook-qa\ocg-rulebook-qa\backend\tests\test_dataset.json"
+OUTPUT_PATH = str(Path(__file__).resolve().parent / "test_dataset.json")
 
 # 目标生成数量
 TARGET_COUNT = 1000

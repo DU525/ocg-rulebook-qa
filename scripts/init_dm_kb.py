@@ -10,7 +10,7 @@ from pathlib import Path
 os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 
 # 数据目录
-DATA_DIR = Path(__file__).parent.parent.parent / 'data'
+DATA_DIR = Path(__file__).resolve().parent.parent / 'data'
 CHUNKS_DIR = DATA_DIR / 'chunks'
 CHUNKS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -18,7 +18,10 @@ CHUNKS_FILE = CHUNKS_DIR / 'dm_rules_chunks.json'
 INDEX_FILE = CHUNKS_DIR / 'dm_rules_index.bin'
 
 # PDF文件
-SOURCE_PDF = r"C:\Users\1\Downloads\数码宝贝卡牌对战综合规则V2.3.pdf"
+SOURCE_PDF = os.environ.get(
+    "DM_RULES_PDF",
+    str(DATA_DIR / "source" / "数码宝贝卡牌对战综合规则V2.3.pdf"),
+)
 
 
 def extract_pdf_text(pdf_path):

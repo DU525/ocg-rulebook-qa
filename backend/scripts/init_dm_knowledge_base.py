@@ -26,7 +26,11 @@ def init_dm_knowledge_base():
     processor = DocumentProcessor(chunk_size=512, chunk_overlap=64)
 
     # 检查源PDF是否存在
-    source_pdf = r"C:\Users\1\Downloads\数码宝贝卡牌对战综合规则V2.3.pdf"
+    # 规则原文请自行从官方渠道获取；默认在 data/source/ 下查找，或用 DM_RULES_PDF 指定
+    source_pdf = os.environ.get(
+        "DM_RULES_PDF",
+        str(Path(__file__).resolve().parents[2] / "data" / "source" / "数码宝贝卡牌对战综合规则V2.3.pdf"),
+    )
     
     if not os.path.exists(source_pdf):
         print(f"错误: 找不到源PDF文件 {source_pdf}")

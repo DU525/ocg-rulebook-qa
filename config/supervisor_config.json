@@ -1,5 +1,6 @@
 {
-    "project_dir": "C:\\Users\\1\\Downloads\\ocg-rulebook-qa\\ocg-rulebook-qa",
+    "_note": "project_dir 相对启动目录解析；也可改为本机绝对路径",
+    "project_dir": ".",
     "check_interval_seconds": 60,
     "max_restart_attempts": 3,
     "restart_delay_seconds": 5,

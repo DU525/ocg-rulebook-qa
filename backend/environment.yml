@@ -54,5 +54,3 @@ variables:
   MODEL_NAME: "abab6.5s-chat"
   MINIMAX_API_BASE: "https://api.minimax.chat/v1"
   DEBUG: "false"
-
-prefix: C:\Users\1\anaconda3\envs\ocg-qa

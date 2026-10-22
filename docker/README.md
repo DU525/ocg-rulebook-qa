@@ -57,7 +57,8 @@
 ### 1. 克隆项目
 
 ```bash
-cd C:\Users\1\Downloads\ocg-rulebook-qa\ocg-rulebook-qa\
+git clone https://github.com/DU525/ocg-rulebook-qa.git
+cd ocg-rulebook-qa
 ```
 
 ### 2. 配置环境变量

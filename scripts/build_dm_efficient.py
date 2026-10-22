@@ -4,9 +4,10 @@ from pathlib import Path
 
 os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 
-CHUNKS_FILE = Path(r"C:\Users\1\Downloads\ocg-rulebook-qa\data\chunks\dm_rules_chunks.json")
-INDEX_FILE = Path(r"C:\Users\1\Downloads\ocg-rulebook-qa\data\chunks\dm_rules_index.bin")
-PROGRESS_FILE = Path(r"C:\Users\1\Downloads\ocg-rulebook-qa\data\chunks\dm_vectors.npy")
+BASE_DIR = Path(__file__).resolve().parent.parent
+CHUNKS_FILE = BASE_DIR / "data" / "chunks" / "dm_rules_chunks.json"
+INDEX_FILE = BASE_DIR / "data" / "chunks" / "dm_rules_index.bin"
+PROGRESS_FILE = BASE_DIR / "data" / "chunks" / "dm_vectors.npy"
 
 def main():
     print("=" * 50)

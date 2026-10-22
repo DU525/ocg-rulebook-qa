@@ -14,7 +14,10 @@ CHUNKS_DIR.mkdir(parents=True, exist_ok=True)
 
 CHUNKS_FILE = CHUNKS_DIR / 'dm_rules_chunks.json'
 INDEX_FILE = CHUNKS_DIR / 'dm_rules_index.bin'
-SOURCE_PDF = r"C:\Users\1\Downloads\数码宝贝卡牌对战综合规则V2.3.pdf"
+SOURCE_PDF = os.environ.get(
+    "DM_RULES_PDF",
+    str(DATA_DIR / "source" / "数码宝贝卡牌对战综合规则V2.3.pdf"),
+)
 
 
 def extract_pdf_text(pdf_path):
