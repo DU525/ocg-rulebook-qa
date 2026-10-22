@@ -200,7 +200,7 @@ class MiniMaxProvider(OpenAICompatibleProvider):
 
 
 class RawHTTPProvider(BaseLLMProvider):
-    """纯 HTTP 实现——不依赖任何 SDK，展示底层协议理解"""
+    """纯 HTTP 实现——不依赖任何 SDK"""
 
     def __init__(self, api_key: str, api_base: str, model_name: str, **kwargs):
         super().__init__(api_key, api_base, model_name, **kwargs)

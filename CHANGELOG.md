@@ -43,16 +43,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- `SHOWCASE.md`. It was not project documentation: its title was "referral
-  presentation plan", it carried a "reasons to recommend to recruiters"
-  section, an unfilled `[your GitHub link]` placeholder, and a note about which
-  files to send to a senior schoolmate before an interview. Material whose
-  purpose is to improve how the project reads in an interview does not belong
-  in the repository that contains the project. The file is archived locally.
-- Career framing from the documentation and from one docstring: the API protocol
-  note no longer says it exists "for interview display", the screenshot guide
-  no longer mentions referral showcases, and the multimodal provider docstring
-  no longer calls itself an "interview bonus point".
+- `SHOWCASE.md`. It was not project documentation: planning notes about how
+  to present the work, plus an unfilled `[your GitHub link]` placeholder.
+  The file is archived outside the repository.
+- Presentation-oriented wording in three documentation files and one docstring:
+  the API protocol note, the screenshot guide, and the multimodal provider
+  docstring now describe what the code does.
 
 ### Changed
 
