@@ -52,7 +52,7 @@ class OCGQANormalUser(HttpUser):
         question = random.choice(TEST_QUESTIONS)
         payload = {"question": question}
         
-        if self.current_conversation_id and random.random() &lt; 0.5:
+        if self.current_conversation_id and random.random() < 0.5:
             payload["conversation_id"] = self.current_conversation_id
         
         with self.client.post(
@@ -81,7 +81,7 @@ class OCGQANormalUser(HttpUser):
         question = random.choice(TEST_QUESTIONS)
         payload = {"question": question}
         
-        if self.current_conversation_id and random.random() &lt; 0.5:
+        if self.current_conversation_id and random.random() < 0.5:
             payload["conversation_id"] = self.current_conversation_id
         
         with self.client.post(

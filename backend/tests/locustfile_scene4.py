@@ -54,7 +54,7 @@ class OCGQAStressTestUser(HttpUser):
         question = random.choice(TEST_QUESTIONS)
         payload = {"question": question}
         
-        if self.current_conversation_id and random.random() &lt; 0.2:
+        if self.current_conversation_id and random.random() < 0.2:
             payload["conversation_id"] = self.current_conversation_id
         
         with self.client.post(
@@ -84,7 +84,7 @@ class OCGQAStressTestUser(HttpUser):
         question = random.choice(TEST_QUESTIONS)
         payload = {"question": question}
         
-        if self.current_conversation_id and random.random() &lt; 0.2:
+        if self.current_conversation_id and random.random() < 0.2:
             payload["conversation_id"] = self.current_conversation_id
         
         with self.client.post(

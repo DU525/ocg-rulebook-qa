@@ -1,4 +1,4 @@
-﻿"""OpenAI Function Calling 格式工具定义
+"""OpenAI Function Calling 格式工具定义
 
 将内部 ToolSchema 转换为 OpenAI Function Calling 格式，供 LLM 的 tools 参数使用。
 """

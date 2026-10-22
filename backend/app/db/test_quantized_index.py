@@ -81,7 +81,7 @@ class IndexPerformanceTester:
         nprobe: Optional[int] = None,
         m: Optional[int] = None,
         nbits: Optional[int] = None
-    ) -&gt; Dict[str, Any]:
+    ) -> Dict[str, Any]:
         """测试单个索引类型的性能
         
         Args:
@@ -157,7 +157,7 @@ class IndexPerformanceTester:
         
         return result
     
-    def _compute_recall(self, predicted_indices: np.ndarray) -&gt; float:
+    def _compute_recall(self, predicted_indices: np.ndarray) -> float:
         """计算 Recall@k
         
         Args:
@@ -181,7 +181,7 @@ class IndexPerformanceTester:
         
         return correct / total
     
-    def run_full_comparison(self) -&gt; Dict[str, Any]:
+    def run_full_comparison(self) -> Dict[str, Any]:
         """运行完整的性能对比测试
         
         Returns:
@@ -225,7 +225,7 @@ class IndexPerformanceTester:
             'report': report
         }
     
-    def _generate_comparison_report(self, results: Dict[str, Any]) -&gt; str:
+    def _generate_comparison_report(self, results: Dict[str, Any]) -> str:
         """生成对比报告
         
         Args:
@@ -244,7 +244,7 @@ class IndexPerformanceTester:
         report_lines.append("="*80)
         
         # 表头
-        report_lines.append(f"\n{'Index Type':&lt;10} {'Memory (MB)':&lt;15} {'Recall@5':&lt;12} {'QPS':&lt;10} {'Build Time (s)':&lt;15}")
+        report_lines.append(f"\n{'Index Type':<10} {'Memory (MB)':<15} {'Recall@5':<12} {'QPS':<10} {'Build Time (s)':<15}")
         report_lines.append("-"*80)
         
         for idx_type in ['hnsw', 'ivf', 'ivfpq']:
@@ -254,7 +254,7 @@ class IndexPerformanceTester:
             qps = res.get('qps', 0)
             build_time = res.get('build_time_s', 0)
             report_lines.append(
-                f"{idx_type:&lt;10} {mem:&lt;15.2f} {recall:&lt;12.4f} {qps:&lt;10.1f} {build_time:&lt;15.2f}"
+                f"{idx_type:<10} {mem:<15.2f} {recall:<12.4f} {qps:<10.1f} {build_time:<15.2f}"
             )
         
         # 相对对比（以 HNSW 为基准）
@@ -281,19 +281,19 @@ class IndexPerformanceTester:
             # 目标检查
             report_lines.append("\nTARGET CHECK:")
             target_met = True
-            if mem_reduction &lt; 70:
+            if mem_reduction < 70:
                 report_lines.append(f"❌ Memory reduction target (-70%): NOT MET ({mem_reduction:.1f}%)")
                 target_met = False
             else:
                 report_lines.append(f"✅ Memory reduction target (-70%): MET ({mem_reduction:.1f}%)")
             
-            if recall_drop &gt; 2:
-                report_lines.append(f"❌ Recall drop target (&lt;2%): NOT MET ({recall_drop:.2f}%)")
+            if recall_drop > 2:
+                report_lines.append(f"❌ Recall drop target (<2%): NOT MET ({recall_drop:.2f}%)")
                 target_met = False
             else:
-                report_lines.append(f"✅ Recall drop target (&lt;2%): MET ({recall_drop:.2f}%)")
+                report_lines.append(f"✅ Recall drop target (<2%): MET ({recall_drop:.2f}%)")
             
-            if qps_speedup &lt; 3:
+            if qps_speedup < 3:
                 report_lines.append(f"❌ QPS speedup target (≥3x): NOT MET ({qps_speedup:.1f}x)")
                 target_met = False
             else:

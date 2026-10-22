@@ -447,12 +447,14 @@ def generate_qa_from_cards(cards):
                 qa = {
                     'id': f"qa_{card['id']}_{template['question'][:10]}",
                     'question': template['question'].format(
-                        name=name, desc=desc, atk=atk, def=def_, 
-                        level=level, attr=attr, race=race
+                        name=name, desc=desc, atk=atk,
+                        level=level, attr=attr, race=race,
+                        **{'def': def_}
                     ),
                     'answer': template['answer'].format(
-                        name=name, desc=desc, atk=atk, def=def_,
-                        level=level, attr=attr, race=race
+                        name=name, desc=desc, atk=atk,
+                        level=level, attr=attr, race=race,
+                        **{'def': def_}
                     ),
                     'card_id': card['id'],
                     'source': '卡牌效果生成',

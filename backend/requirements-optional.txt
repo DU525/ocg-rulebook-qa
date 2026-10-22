@@ -1,0 +1,19 @@
+# Optional dependencies.
+#
+# The application runs without these. Each import site is guarded, and the
+# affected capability reports itself as unavailable rather than crashing.
+#
+#   pip install -r requirements-optional.txt
+
+# OCR for scanned documents. Pick one backend; installing all three is wasteful.
+# The code tries them in order and uses whichever is present.
+easyocr>=1.7
+# paddleocr>=2.7
+# pytesseract>=0.3
+
+# Image handling for the OCR path.
+pillow>=10.0
+
+# LoRA fine-tuning of the embedding model (scripts only, never on the
+# request path).
+peft>=0.7

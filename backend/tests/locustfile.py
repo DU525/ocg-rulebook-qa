@@ -71,7 +71,7 @@ class OCGQAUser(HttpUser):
         }
         
         # 50%的概率使用已有对话ID，测试有历史的情况
-        if self.current_conversation_id and random.random() &lt; 0.5:
+        if self.current_conversation_id and random.random() < 0.5:
             payload["conversation_id"] = self.current_conversation_id
         
         with self.client.post(
@@ -106,7 +106,7 @@ class OCGQAUser(HttpUser):
             "question": question
         }
         
-        if self.current_conversation_id and random.random() &lt; 0.5:
+        if self.current_conversation_id and random.random() < 0.5:
             payload["conversation_id"] = self.current_conversation_id
         
         with self.client.post(
@@ -243,7 +243,7 @@ def on_test_stop(environment, **kwargs):
     print(f"测试持续时间: {duration:.2f} 秒")
     print(f"总请求数: {test_results['total_requests']}")
     print(f"失败请求数: {test_results['failed_requests']}")
-    if test_results["total_requests"] &gt; 0:
+    if test_results["total_requests"] > 0:
         success_rate = ((test_results["total_requests"] - test_results["failed_requests"]) 
                        / test_results["total_requests"] * 100)
         print(f"成功率: {success_rate:.2f}%")
